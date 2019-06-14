@@ -7,4 +7,5 @@ export * from "./src/MethodNotImplementedError";
 export * from "./src/NotSupportedError";
 export * from "./src/observe";
 export * from "./src/setSingleChildNode";
+export * from "./src/uint8ArrayToBase64";
 export * from "./src/uint8ArrayToHex";
