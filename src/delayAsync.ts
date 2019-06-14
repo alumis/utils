@@ -1,22 +1,26 @@
 import { CancellationToken, OperationCancelledError } from '@alumis/cancellationtoken';
 
-export function delayAsync(duration: number, cancellationToken: CancellationToken) {
+export function delayAsync(timeout: number, cancellationToken?: CancellationToken) {
 
-    return new Promise<void>((resolve, reject) => {
+    if (cancellationToken) {
 
-        cancellationToken.addListener(cancelListener);
+        return new Promise((resolve, reject) => {
 
-        const timerId = setTimeout(() => {
+            let cancellationListener = () => {
+                clearTimeout(handle);
+                reject(new OperationCancelledError());
+            };
 
-            cancellationToken.removeListener(cancelListener);
-            resolve();
+            cancellationToken.addListener(cancellationListener);
 
-        }, duration);
+            let handle = setTimeout(() => {
 
-        function cancelListener() {
+                cancellationToken.removeListener(cancellationListener);
+                resolve();
 
-            clearTimeout(timerId);
-            reject(new OperationCancelledError());
-        }
-    });
+            }, timeout);
+        });
+    }
+
+    else return new Promise(r => { setTimeout(r, timeout); });
 }
