@@ -4,3 +4,4 @@ export * from './src/delayAsync';
 export * from "./src/getScrollParent";
 export * from "./src/elementIsVisible";
 export * from './src/keyCodes';
+export * from "./src/firstLetterCapitalized";
