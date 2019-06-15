@@ -1,6 +1,4 @@
 ﻿
-let promises = new Map<string, Promise<void>>();
-
 export function loadScriptAsyn(url: string) {
 
     let promise = promises.get(url);
@@ -54,3 +52,5 @@ export function loadScriptAsyn(url: string) {
 
     return promise;
 }
+
+let promises = new Map<string, Promise<void>>();
