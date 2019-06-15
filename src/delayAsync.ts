@@ -1,4 +1,5 @@
-import { CancellationToken, OperationCancelledError } from '@alumis/cancellationtoken';
+import { CancellationToken } from "./CancellationToken";
+import { OperationCancelledError } from "./OperationCancelledError";
 
 export function delayAsync(timeout: number, cancellationToken?: CancellationToken) {
 
