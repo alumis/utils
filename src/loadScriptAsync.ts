@@ -1,5 +1,5 @@
 ﻿
-export function loadScriptAsyn(url: string) {
+export function loadScriptAsync(url: string) {
 
     let promise = promises.get(url);
 
