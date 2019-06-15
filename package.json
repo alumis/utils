@@ -10,11 +10,5 @@
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/alumis/utils/issues"
-  },
-  "devDependencies": {
-    "@alumis/cancellationtoken": "1.0.4"
-  },
-  "peerDependencies": {
-    "@alumis/cancellationtoken": "1.0.4"
   }
 }
