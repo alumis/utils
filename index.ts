@@ -13,3 +13,4 @@ export * from "./src/Semaphore";
 export * from "./src/setSingleChildNode";
 export * from "./src/uint8ArrayToBase64";
 export * from "./src/uint8ArrayToHex";
+export * from './src/whenAll';
