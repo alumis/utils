@@ -4,12 +4,8 @@ import { OperationCancelledError } from "./OperationCancelledError";
 export class Semaphore {
 
     constructor() {
-
-        let head = <SemaphoreQueueEntry>{};
-        let tail = <SemaphoreQueueEntry>{};
-
+        let head = <SemaphoreQueueEntry>{}, tail = <SemaphoreQueueEntry>{};
         (head.next = tail).previous = head;
-
         this._head = head;
         this._tail = tail;
     }
@@ -18,30 +14,20 @@ export class Semaphore {
     private _tail: SemaphoreQueueEntry;
 
     waitOneAsync(cancellationtoken?: CancellationToken) {
-
         if (cancellationtoken) {
-
             if (cancellationtoken.isCancellationRequested)
                 return Promise.reject(new OperationCancelledError());
         }
-
         return new Promise<void>((resolve, reject) => {
-
-            let current = <SemaphoreQueueEntry>{ resolve: resolve, previous: this._tail.previous, next: this._tail };
-
-            current.previous.next = current;
-            current.next.previous = current;
-
-            if (this._head.next === current)
+            let currentQueueEntry = <SemaphoreQueueEntry>{ resolve: resolve, previous: this._tail.previous, next: this._tail };
+            currentQueueEntry.previous.next = currentQueueEntry;
+            currentQueueEntry.next.previous = currentQueueEntry;
+            if (this._head.next === currentQueueEntry)
                 resolve();
-
             else if (cancellationtoken) {
-
-                current.cancellationToken = cancellationtoken;
-
-                cancellationtoken.addListener(current.cancellationTokenListener = () => {
-
-                    (current.previous.next = current.next).previous = current.previous;
+                currentQueueEntry.cancellationToken = cancellationtoken;
+                cancellationtoken.addListener(currentQueueEntry.cancellationTokenListener = () => {
+                    (currentQueueEntry.previous.next = currentQueueEntry.next).previous = currentQueueEntry.previous;
                     reject(new OperationCancelledError());
                 });
             }
@@ -49,23 +35,15 @@ export class Semaphore {
     }
 
     release() {
-
         let head = this._head, next = head.next.next;
-        
         (head.next = next).previous = head;
-
         if (next !== this._tail) {
-
             if (next.cancellationToken) {
-
                 next.cancellationToken.removeListener(next.cancellationTokenListener);
-
                 delete next.cancellationToken;
                 delete next.cancellationTokenListener;
             }
-
             let resolve = next.resolve;
-
             delete next.resolve;
             resolve();
         }
@@ -73,7 +51,6 @@ export class Semaphore {
 }
 
 interface SemaphoreQueueEntry {
-
     resolve: () => void;
     previous: SemaphoreQueueEntry;
     next: SemaphoreQueueEntry;
