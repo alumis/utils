@@ -2,11 +2,14 @@
   "name": "@alumis/utils",
   "version": "1.0.19",
   "description": "TypeScript utilities library",
+  "scripts": {
+    "bump": "git add -A & git commit -am 'bumped' && npm version patch && npm publish && git push --follow-tags"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alumis/utils.git"
   },
-  "author": "Emil Müller",
+  "author": "Emil Müller, Andrew Nielsen Sadduq",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/alumis/utils/issues"
