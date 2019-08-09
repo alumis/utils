@@ -1,3 +1,5 @@
+import { OperationCancelledError } from "./OperationCancelledError";
+
 export class CancellationToken {
 
     isCancellationRequested: boolean;
@@ -25,6 +27,11 @@ export class CancellationToken {
 
     link(token: CancellationToken) {
         return new LinkedCancellationToken([this, token]);
+    }
+
+    throwIfCancellationRequested() {
+        if (this.isCancellationRequested)
+            throw new OperationCancelledError();
     }
 }
 
