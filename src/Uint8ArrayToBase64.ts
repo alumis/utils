@@ -1,4 +1,4 @@
-export function uint8ArrayToBase64(data: Uint8Array) {
+export function Uint8ArrayToBase64(data: Uint8Array) {
     const table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     let a, c, s = 0, r = [];
     for (let n = 0, length = data.length; n < length; n++) {
