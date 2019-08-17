@@ -13,5 +13,11 @@
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/alumis/utils/issues"
+  },
+  "devDependencies": {
+    "msgpack5": "^4.2.1"
+  },
+  "peerDependencies": {
+    "msgpack5": "^4.2.1"
   }
 }
