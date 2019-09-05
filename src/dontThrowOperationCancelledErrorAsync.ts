@@ -1,6 +1,6 @@
 import { OperationCancelledError } from "./OperationCancelledError";
 
-export async function cancelSilentlyAsync<TValue>(promise: Promise<TValue>) {
+export async function dontThrowOperationCancelledErrorAsync<TValue>(promise: Promise<TValue>) {
     try {
         await promise;
     }
